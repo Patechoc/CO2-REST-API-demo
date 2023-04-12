@@ -1,0 +1,106 @@
+[tool.poetry]
+name = "co2-emissions-api"
+version = "0.0.0"
+description = "RESTful API to access data about CO2 emissions"
+authors = [
+    "Patrick Merlot <patrick.merlot@gmail.com>",
+]
+repository = "https://github.com/Patechoc/rest-api-co2-emissions.git"
+readme = "README.md"
+packages = [
+    {include = "api", from = "co2_emissions_api"},
+]
+
+
+[tool.poetry.plugins."console_scripts"]
+"serve" = "uvicorn  main:app --reload"
+
+[tool.poetry.dependencies]
+python = ">3.8"
+loguru = "^0.6.0"
+typer = "^0.4.0"
+yamllint = "^1.26.3"
+fastapi = "^0.75.0"
+uvicorn = {extras = ["standard"], version = "^0.17.5"}
+pandas = "^1.4.1"
+joblib = "^1.2.0"
+
+[tool.poetry.dev-dependencies]
+sphinx = "*"
+black = { version = "*", allow-prereleases = true }
+coverage = { version = "*", extras = ['toml'] }
+flake8 = "*"
+flake8-bugbear = "*"
+#isort = ">= 5"
+mock = "*"
+pre-commit = "*"
+pytest = ">= 6"  # needs pyproject.toml support
+pytest-cov = "*"
+pytest-integration = "*"
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+style = "semver"
+pattern = "^(?P<base>\\d+\\.\\d+\\.\\d+)(-?((?P<stage>[a-zA-Z]+)\\.?(?P<revision>\\d+)?))?$"
+
+[tool.isort]
+profile = "black"
+line_length = 100
+known_first_party = []
+
+[tool.black]
+line-length = 100
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | profiling
+  | docs
+  | dependencies
+  | \.pytest_cache
+)/
+'''
+
+[tool.coverage.report]
+# Regexes for lines to exclude from consideration
+exclude_lines = [
+              "pragma: no cover",
+              "raise AssertionError",
+              "raise NotImplementedError",
+              "if verbose:",
+              "if 0:",
+              "if False:",
+              ]
+skip_covered = true
+show_missing = true
+precision = 2
+
+[tool.coverage.run]
+branch = true
+source = ["co2_emissions_api"]
+
+[tool.pytest.ini_options]
+log_file = "pytest.log"
+log_level = "DEBUG"
+log_file_format = "%(asctime)s - %(name)s - %(levelname)s: %(message)s"
+norecursedirs = "_build tmp*  __pycache__ src prof wheel_files"
+markers = [
+  "integration: Mark test as an integration test",
+]
+filterwarnings = [
+  "ignore:PyArray_GetNumericOps.*",
+  "ignore:PyArray_SetNumericOps.*",
+]
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
+build-backend = "poetry.core.masonry.api"
