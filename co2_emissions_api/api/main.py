@@ -10,11 +10,9 @@ The CO2 emissions REST API.
 
 This API can return the following information:
 
-1. The countries ranked by their CO2 emissions per capita \n
-(ex.: the top 10 countries with highest CO2 emissions per capita)
+1. The countries ranked by their CO2 emissions per capita (ex.: the top 10 countries with highest CO2 emissions per capita)
 2. The CO2 emissions and yearly change of countries given a list of country codes (ex: can,lux,est)
-3. The countries ranked by their averaged life expectancy \n
-(ex.: The top 10 Countries with highest life expectancy)
+3. The countries ranked by their averaged life expectancy (ex.: The top 10 Countries with highest life expectancy)
 4. the cumulated CO2 emissions given a list of countries codes (ex: can,lux,est)
 
 """
